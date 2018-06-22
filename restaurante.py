@@ -1,15 +1,15 @@
-import time
+#quatro pilhas as mesas
+#tres filas caixas e fila de entrada
 
 class restaurante:
     def __init__(self):
-        self.entrada = 1
-        self.mesas = [0, 0, 0, 0]
-        self.caixas = [0, 0]
-        self.lista_espera = []
+        self.entrada = []
+        self.mesas = [[], [], [], []]
+        self.caixas = [[], []]
+        self.tempo_preparo = 5
 
     def consulta_status_lista_espera (self):
-        tamanho_fila = len(self.lista_espera)
-        if tamanho_fila == 0:
+        if len(self.lista_espera) == 0:
             return False
         else:
             return True
@@ -26,19 +26,19 @@ class restaurante:
 
     def consulta_mesa (self):
         for mesa in self.mesas:
-            if mesa == 0:
+            if len(mesa) != 0:
                 return self.mesas.index(mesa)
         return None
 
-    def ocupa_mesa (self):
+    def ocupa_mesa (self, cliente):
         mesa = consulta_mesa()
-        self.mesas[mesa] = 1
+        self.mesas[mesa] = cliente
 
     def libera_mesa (self, mesa):
-        self.mesas[mesa] = 0
+        self.mesas[mesa] = []
         if consulta_status_lista_espera() == True:
             acomoda_cliente_lista_espera()
-        
+
     def recepciona_cliente(self):
         if consulta_status_lista_espera() == False:
             if consulta_mesa == None:
